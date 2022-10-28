@@ -1,7 +1,12 @@
+%% 程序分享 
+% 个人博客 www.aomanhao.top
+% Github https://github.com/AomanHao
+%--------------------------------------
+
 clc
 clear
 close all
-%% 低照度增强 测试程序
+
 addpath('./algorithms/');
 
 conf.name = '2.jpg';
@@ -13,7 +18,7 @@ end
 
 %% bypass
 algo_type = 'dong_enh_lite';
-%% 低照度增强
+
 tic;
 switch algo_type
     case  'Ying_2017_CAIP' 
@@ -54,7 +59,7 @@ switch algo_type
         Lambda = 4;
         out = IBA(img, Lambda);
         enhan_img = out.*255;
-        %容易过曝，参数设置
+
     case 'luminup'
         a=(im2double(img));
         r = a(:,:,1);
