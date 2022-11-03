@@ -1,12 +1,13 @@
 %% 程序分享 
 % 个人博客 www.aomanhao.top
 % Github https://github.com/AomanHao
+% CSDN https://blog.csdn.net/Aoman_Hao
 %--------------------------------------
 
 clc
 clear
 close all
-
+%% 低照度增强 测试程序
 addpath('./algorithms/');
 
 conf.name = '2.jpg';
@@ -19,9 +20,10 @@ end
 %% bypass
 algo_type = 'dong_enh_lite';
 
+%% 低照度增强
 tic;
 switch algo_type
-    case  'Ying_2017_CAIP' 
+    case  'Ying_2017_CAIP'
         img = im2double(img);
         alpha=0.6;
         enhan_img = Ying_2017_CAIP(img,alpha).*255;
@@ -31,7 +33,7 @@ switch algo_type
         img_dark = TooDark(img,0.5,0.38);
         [img_light,W] = TooLight(img_dark,0.5);
         enhan_img = (img_dark.*W+img_light.*(1-W)).*255;
-             
+        
     case 'LIME'
         img = im2double(img);
         para.alpha = 0.5;
@@ -59,7 +61,6 @@ switch algo_type
         Lambda = 4;
         out = IBA(img, Lambda);
         enhan_img = out.*255;
-
     case 'luminup'
         a=(im2double(img));
         r = a(:,:,1);
@@ -72,17 +73,25 @@ switch algo_type
         enhan_img = out.*255;
         
     case 'dong'
-        img=(im2double(img));
+        %《FAST EFFICIENT ALGORITHM FOR ENHANCEMENT OF LOW LIGHTING VIDEO Xuan Dong》
         w=0.8;
         out = dong( img ,w );
         enhan_img = out.*255;
-
+        
     case 'dong_enh_lite'
-        img=(im2double(img));
+        % dong enhance algorithm optimization
         w=0.8;
         out = dong_enh_lite( img ,w );
         enhan_img = out.*255;
-
+        
+    case 'INDANE_re'
+        %《An Integrated Neighborhood Dependent Approach for Nonlinear Enhancement of Color Images》
+        enhan_img = INDANE_re(img);
+        
+    case 'AINDANE_re'
+        %《Adaptive and integrated neighborhood-dependent approach for nonlinear enhancement of color images》
+        enhan_img = AINDANE_re(img);
+        
 end
 toc;
 t=toc;
