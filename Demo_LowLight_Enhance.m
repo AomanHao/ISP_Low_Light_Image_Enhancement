@@ -1,16 +1,17 @@
-%% ³ÌÐò·ÖÏí 
-% ¸öÈË²©¿Í www.aomanhao.top
+%% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+% ï¿½ï¿½ï¿½Ë²ï¿½ï¿½ï¿½ www.aomanhao.top
 % Github https://github.com/AomanHao
 % CSDN https://blog.csdn.net/Aoman_Hao
+% zhihu https://www.zhihu.com/people/aomanhao-hao
 %--------------------------------------
 
 clc
 clear
 close all
-%% µÍÕÕ¶ÈÔöÇ¿ ²âÊÔ³ÌÐò
+%% ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½Ç¿ ï¿½ï¿½ï¿½Ô³ï¿½ï¿½ï¿½
 addpath('./algorithms/');
 
-conf.name = '2.jpg';
+conf.name = '1.jpg';%1.jpg 2.jpg
 img = imread(['./data/',conf.name]);
 conf.savepath = './result/';
 if ~exist(conf.savepath,'var')
@@ -18,9 +19,9 @@ if ~exist(conf.savepath,'var')
 end
 
 %% bypass
-algo_type = 'dong_enh_lite';
+algo_type = 'AGCWD';%Ying_2017_CAIP\darklight
 
-%% µÍÕÕ¶ÈÔöÇ¿
+%% ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½Ç¿
 tic;
 switch algo_type
     case  'Ying_2017_CAIP'
@@ -73,7 +74,7 @@ switch algo_type
         enhan_img = out.*255;
         
     case 'dong'
-        %¡¶FAST EFFICIENT ALGORITHM FOR ENHANCEMENT OF LOW LIGHTING VIDEO Xuan Dong¡·
+        %ï¿½ï¿½FAST EFFICIENT ALGORITHM FOR ENHANCEMENT OF LOW LIGHTING VIDEO Xuan Dongï¿½ï¿½
         w=0.8;
         out = dong( img ,w );
         enhan_img = out.*255;
@@ -85,13 +86,16 @@ switch algo_type
         enhan_img = out.*255;
         
     case 'INDANE_re'
-        %¡¶An Integrated Neighborhood Dependent Approach for Nonlinear Enhancement of Color Images¡·
+        %ï¿½ï¿½An Integrated Neighborhood Dependent Approach for Nonlinear Enhancement of Color Imagesï¿½ï¿½
         enhan_img = INDANE_re(img);
         
     case 'AINDANE_re'
-        %¡¶Adaptive and integrated neighborhood-dependent approach for nonlinear enhancement of color images¡·
+        %ï¿½ï¿½Adaptive and integrated neighborhood-dependent approach for nonlinear enhancement of color imagesï¿½ï¿½
         enhan_img = AINDANE_re(img);
         
+    case 'AGCWD'
+        %Efficientcontrast enhancement using adaptive gamma correction with weightingdistribution
+        enhan_img = AGCWD(img);
 end
 toc;
 t=toc;
